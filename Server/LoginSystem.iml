@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="2016-12-26_17-46" level="project" />
     <orderEntry type="library" name="mysql:mysql-connector-java:5.1.23" level="project" />
+    <orderEntry type="library" name="Socket" level="project" />
   </component>
 </module>
