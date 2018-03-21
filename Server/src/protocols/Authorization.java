@@ -3,6 +3,8 @@ package protocols;
 
 import lowentry.ue4.libs.jackson.databind.JsonNode;
 import database.Database;
+
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import other.Encode;
@@ -29,13 +31,17 @@ public class Authorization
 				try
 				{
 					String HashPassword = Encode.HashPassword(dataPassword);
+					ResultSet rs = Database.SendSelectQuery("SELECT login, banned FROM accounts WHERE login='" + dataLogin + "' AND password='" + HashPassword + "'");
 
-					if(Database.SendSelectQuery("SELECT login FROM accounts WHERE login='" + dataLogin + "' AND password='" + HashPassword + "'").next() == true)
+					if(rs.next() == true)
 					{
-						Database.SendUpdateQuery("UPDATE accounts SET status=1 WHERE login='" + dataLogin + "'");
-						System.out.println("Auth User: " + dataLogin);
-
-						data.put("Status", 0);
+						if(rs.getInt("banned") == 0)
+						{
+							System.out.println("Auth User: " + dataLogin);
+							data.put("Status", 0);
+						}
+						else if(rs.getInt("banned") == 1)
+							data.put("Status", 3);
 					}
 					else
 						data.put("Status", 2);

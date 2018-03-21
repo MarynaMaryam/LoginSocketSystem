@@ -27,6 +27,8 @@ public class Main {
             {
                 // this function is called after a client disconnects
                 System.out.println("[" + Thread.currentThread().getName() + "] ClientDisconnected: " + client);
+
+
             }
 
 
@@ -69,8 +71,6 @@ public class Main {
             {
                 String jsonString = LowEntry.bytesToStringUtf8(bytes);
                 JsonNode root = LowEntry.parseJsonString(jsonString);
-
-                System.out.println(jsonString);
 
                 if(root == null)
                 {
